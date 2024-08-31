@@ -1,6 +1,6 @@
 {
-    "short_name": "Glucomentry",
-    "name": "Glucomentry Prototype",
+    "short_name": "Glucometry",
+    "name": "Glucometry Prototype",
     "id": "/?source=pwa",
     "start_url": "/?source=pwa",
     "display": "standalone",

@@ -3,7 +3,7 @@ import { render } from "solid-js/web";
 function App() {
   return (
     <h2>
-        Glucometry
+        Hello Oleg
     </h2>
   );
 }
