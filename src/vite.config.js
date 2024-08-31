@@ -32,7 +32,7 @@ export default defineConfig({
     basicSsl(),
     ],
   server: {
-    port: 44300,
+    port: 443,
     https: true,
     host: '0.0.0.0',
     open: '../dist/index.html',

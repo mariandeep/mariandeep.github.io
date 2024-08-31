@@ -2,15 +2,15 @@ import { onMount } from "solid-js";
 import { render } from "solid-js/web";
 
 function App() {
-  onMount(()=> {
+  onMount(async ()=> {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      await navigator.serviceWorker.register('/sw.js?source=index')
     };
   });
   return (
-    <h2>
+    <h1>
         Hello Oleg
-    </h2>
+    </h1>
   );
 }
 render(() => <App />, document.getElementById(`app`));

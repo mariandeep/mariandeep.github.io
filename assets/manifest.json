@@ -1,7 +1,14 @@
 {
     "short_name": "Glucometry",
     "name": "Glucometry Prototype",
-    "id": "/?source=pwa",
+    "icons": [
+      {
+        "src": "/images/icons-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "id": "glucometry-pwa",
     "start_url": "/?source=pwa",
     "display": "standalone",
     "scope": "/"
