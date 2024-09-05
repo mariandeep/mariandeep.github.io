@@ -4,7 +4,9 @@ var items = [
     'manifest.json',
     'images/512.png'
 ];
-
+self.addEventListener('activate', function(e){
+    caches.delete(cacheName).then(() => self.clients.claim());
+});
 self.addEventListener('install', function (e) {
     caches.delete(cacheName).then(
         e.waitUntil(
