@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
-import basicSsl from '@vitejs/plugin-basic-ssl';
+import mkcert from 'vite-plugin-mkcert'
 import copy from 'rollup-plugin-copy' //https://www.npmjs.com/package/rollup-plugin-copy
 
 export default defineConfig({
@@ -29,7 +29,7 @@ export default defineConfig({
         hook: 'writeBundle', //runs after cleanup dist
     }),
     solidPlugin(), 
-    basicSsl(),
+    mkcert(),
     ],
   server: {
     port: 443,
