@@ -3,7 +3,7 @@
     "name": "Glucometry Prototype",
     "icons": [
       {
-        "src": "/images/icons-512.png",
+        "src": "/images/512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
