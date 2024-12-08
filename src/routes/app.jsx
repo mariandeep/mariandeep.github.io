@@ -1,4 +1,5 @@
 import { onMount } from "solid-js";
+import { MainPage } from "../pages/main-page";
 
 export function App() {
     onMount(async ()=> {
@@ -6,9 +7,5 @@ export function App() {
         await navigator.serviceWorker.register('/sw.js?source=index')
       };
     });
-    return (
-      <h1>
-          Hello Oleg
-      </h1>
-    );
+    return <MainPage/>;
   }

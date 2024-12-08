@@ -1,14 +1,32 @@
-@import url(/node_modules/@alexlit/css-material-color-palette-variables/index.css);
+@import url(./../node_modules/@alexlit/css-material-color-palette-variables/index.css);
 
 @media (prefers-color-scheme: light)
 {
     :root {
         --page-background: var(--white);
+        --base-color: var(--black);
+        --level-1: var(--gray--50);
+        --level-2: var(--gray--100);
+        --text-good: var(--green--900);
+        --text-warn: var(--orange--900);
+        --text-bad: var(--red--900);
+        --bad-background: linear-gradient(to bottom right, var(--red--50), var(--orange--50), var(--purple--50, var(--deep-purple--50)));
     }
 }
 @media (prefers-color-scheme: dark)
 {
     :root {
         --page-background: var(--black);
+        --base-color: var(--white);
+        --level-1: var(--gray--900);
+        --level-2: var(--gray--800);
+        --text-good: var(--green--50);
+        --text-warn: var(--orange--50);
+        --text-bad: var(--red--50);
+        --bad-background: linear-gradient(to bottom right, var(--red--900), var(--orange--900), var(--purple--900), var(--deep-purple--900));
     }
+}
+
+.page-bad {
+    background: var(--bad-background);
 }
