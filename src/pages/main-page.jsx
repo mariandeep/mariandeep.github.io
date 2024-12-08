@@ -15,9 +15,8 @@ export function MainPage(props) {
     <div className="main-page-surface">
     <div className="flex-column padding-base sizing-bb gap-half">
       <h3>Hello Oleg</h3>
-      <div className="gap-half sizing-bb"
+      <div className="gap-half sizing-bb d-grid"
         style={{
-          display: `grid`,
           gridAutoColumns: 3,
           gridAutoRows: 3,
         }}
