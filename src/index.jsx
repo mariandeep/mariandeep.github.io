@@ -1,16 +1,12 @@
-import { onMount } from "solid-js";
-import { render } from "solid-js/web";
 
-function App() {
-  onMount(async ()=> {
-    if ('serviceWorker' in navigator) {
-      await navigator.serviceWorker.register('/sw.js?source=index')
-    };
-  });
-  return (
-    <h1>
-        Hello Oleg
-    </h1>
-  );
-}
-render(() => <App />, document.getElementById(`app`));
+import { render } from "solid-js/web";
+import { Login } from "./routes/login";
+import { App } from './routes/app';
+import { Router, Route } from "@solidjs/router";
+import './css/index.css'
+
+render(() => (
+  <Router root={App}>
+    <Route path='/login' component={Login}/>
+  </Router>
+), document.getElementById(`app`));

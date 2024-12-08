@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
+import postCssImport from 'postcss-import'
 import mkcert from 'vite-plugin-mkcert'
 import copy from 'rollup-plugin-copy' //https://www.npmjs.com/package/rollup-plugin-copy
 
@@ -31,6 +32,7 @@ export default defineConfig({
     }),
     solidPlugin(), 
     mkcert(),
+    postCssImport()
     ],
   server: {
     port: 443,

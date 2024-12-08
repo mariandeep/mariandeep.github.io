@@ -1,0 +1,14 @@
+@import url(/node_modules/@alexlit/css-material-color-palette-variables/index.css);
+
+@media (prefers-color-scheme: light)
+{
+    :root {
+        --page-background: var(--white);
+    }
+}
+@media (prefers-color-scheme: dark)
+{
+    :root {
+        --page-background: var(--black);
+    }
+}
