@@ -6,7 +6,8 @@ import copy from 'rollup-plugin-copy' //https://www.npmjs.com/package/rollup-plu
 export default defineConfig({
   build: {
     outDir: '../dist',
-    sourcemap: false,
+    emptyOutDir: true,
+    sourcemap: true,
     rollupOptions: {
         output: {
           entryFileNames: '[name].js',
