@@ -1,6 +1,8 @@
 import { createEffect, createResource, createSignal, Match, Show, Switch } from 'solid-js';
 import { Card } from '../card/card';
-import { getData } from './data-helpers';
+import { postData } from './data-helpers';
+import env from './../../env.json';
+import secret from './../../secrets.json';
 
 function drawChart(ref, data) {
     console.log('ref', ref, 'data', data);
@@ -11,7 +13,14 @@ function drawChart(ref, data) {
 
 export function MainChartContainer(props) {
     const [ref, setRef] = createSignal();
-    const [data] = createResource('/data/data.json', getData);
+    const [data] = createResource('/data/data.json', () =>
+        postData(env.Endpoints.Glucose, secret.User, {
+            startDate: new Date().toUTCString(),
+            endDate: new Date().toUTCString(),
+            pageNumber: 0,
+            pageSize: 10,
+        })
+    );
     createEffect(() => {
         drawChart(ref(), data());
     });
