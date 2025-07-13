@@ -15,12 +15,11 @@ export const postData = async (
     const url = `${env.Urls.Backend}${endpoint}`;
     console.warn(user, endpoint);
     const response = await fetch(url, {
-        credentials: 'include',
         method: 'POST',
-        mode: 'cors',
         headers: {
             'Authorization': `Bearer ${user.Token}`,
             'Content-Type': 'application/json',
+            'Accepts': 'application/json',
         },
         body: JSON.stringify(body),
     });
@@ -39,6 +38,7 @@ export const tryAuthUser = async (/** @type {{ Email: String; Password: String; 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accepts': 'application/json',
             },
             body: JSON.stringify({
                 email: user.Email,
