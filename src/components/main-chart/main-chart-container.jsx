@@ -3,6 +3,7 @@ import { Card } from '../card/card';
 import { postData } from './data-helpers';
 import env from './../../env.json';
 import secret from './../../secrets.json';
+import { getPageableBody } from './data-helpers';
 
 function drawChart(ref, data) {
     console.log('ref', ref, 'data', data);
@@ -13,14 +14,9 @@ function drawChart(ref, data) {
 
 export function MainChartContainer(props) {
     const [ref, setRef] = createSignal();
-    const [data] = createResource('/data/data.json', () =>
-        postData(env.Endpoints.Glucose, secret.User, {
-            startDate: new Date().toUTCString(),
-            endDate: new Date().toUTCString(),
-            pageNumber: 1,
-            pageSize: 10,
-        })
-    );
+    const [data] = createResource('/data/data.json', () => {
+        postData(env.Endpoints.Glucose, secret.User, getPageableBody(new Date(), 7), 'readings');
+    });
     createEffect(() => {
         drawChart(ref(), data());
     });

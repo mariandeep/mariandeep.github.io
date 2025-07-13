@@ -1,10 +1,12 @@
 //@ts-check
 import env from './../../env.json';
+import { addDays } from 'date-fns';
 
 export const postData = async (
     /** @type {string} */ endpoint,
     /** @type {{ Token: String; Email: string; Password: string; } | undefined} */ user,
-    /** @type {object} */ body
+    /** @type {object} */ body,
+    /** @type {string} */ path
 ) => {
     if (!user) throw new Error();
     if (!user.Token) {
@@ -13,22 +15,21 @@ export const postData = async (
     }
 
     const url = `${env.Urls.Backend}${endpoint}`;
-    console.warn(user, endpoint);
     const response = await fetch(url, {
         method: 'POST',
-        headers: {
+        mode: 'no-cors',
+        headers: new Headers({
             'Authorization': `Bearer ${user.Token}`,
             'Content-Type': 'application/json',
-            'Accepts': 'application/json',
-        },
+        }),
         body: JSON.stringify(body),
     });
     if (response.ok) {
         const data = response.json();
-        return data;
+        if (data && path) return data[path];
+        else return data;
     }
-    console.log(response);
-    throw new Error();
+    return new Error(response.statusText);
 };
 
 export const tryAuthUser = async (/** @type {{ Email: String; Password: String; Token: String; }} */ user) => {
@@ -36,10 +37,8 @@ export const tryAuthUser = async (/** @type {{ Email: String; Password: String; 
     try {
         const response = await fetch(`${env.Urls.Backend}${env.Endpoints.Auth}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accepts': 'application/json',
-            },
+            mode: 'no-cors',
+            headers: new Headers({ 'Content-Type': 'application/json' }),
             body: JSON.stringify({
                 email: user.Email,
                 password: user.Password,
@@ -55,3 +54,14 @@ export const tryAuthUser = async (/** @type {{ Email: String; Password: String; 
         return;
     }
 };
+
+export function getPageableBody(date, days, pageNumber = 1, pageSize = 100) {
+    const startDate = date;
+    const endDate = addDays(startDate, days * -1);
+    return {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+    };
+}
