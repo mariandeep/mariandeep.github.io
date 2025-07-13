@@ -1,10 +1,19 @@
-import { describe, expect, vitest, it, test } from 'vitest';
-import { tryAuthUser, postData } from './data-helpers';
+//@ts-check
+import { describe, expect, it } from 'vitest';
+import { tryAuthUser, postData, getPageableBody } from './data-helpers';
 import secrets from './../../secrets.json';
 import env from './../../env.json';
-import { getPageableBody } from './data-helpers';
 
 describe('Data adapter tests', async () => {
+    it('should create proper body', () => {
+        const body = getPageableBody(new Date(2025, 7, 13, 0, 0, 0, 0), 1, 1, 10);
+        expect(body).toEqual({
+            startDate: '2025-08-12T16:00:00.000Z',
+            endDate: '2025-08-11T16:00:00.000Z',
+            pageNumber: 1,
+            pageSize: 10,
+        });
+    });
     it('should return glucose readings for today', async () => {
         const dataOrError = await postData(env.Endpoints.Glucose, secrets.User, getPageableBody(new Date(), 7));
         expect(dataOrError).toBeDefined();
@@ -28,7 +37,10 @@ describe('Data adapter tests', async () => {
 describe('Login and Register tests', () => {
     it('should login', async () => {
         const user = await tryAuthUser(secrets.User);
+        expect(user).toBeDefined();
+        // @ts-ignore
         expect(user.Token).toBeDefined();
-        expect(user.Token.length).toBeGreaterThan(10);
+        // @ts-ignore
+        expect(user.Token.length).toBeGreaterThan(100);
     });
 });

@@ -3,10 +3,10 @@ import env from './../../env.json';
 import { addDays } from 'date-fns';
 
 export const postData = async (
-    /** @type {string} */ endpoint,
-    /** @type {{ Token: String; Email: string; Password: string; } | undefined} */ user,
-    /** @type {object} */ body,
-    /** @type {string} */ path
+    /** @type {String} */ endpoint,
+    /** @type {{ Token: String | null; Email: String; Password: String; } | undefined} */ user,
+    /** @type {Object} */ body,
+    /** @type {String} */ path
 ) => {
     if (!user) throw new Error();
     if (!user.Token) {
@@ -32,7 +32,11 @@ export const postData = async (
     return new Error(response.statusText);
 };
 
-export const tryAuthUser = async (/** @type {{ Email: String; Password: String; Token: String; }} */ user) => {
+/**
+ * @param {{ Email: String; Password: String; Token: String | null; }} user
+ * @returns {Promise<{ Email: String; Password: String; Token: String | null; } | undefined>}
+ */
+export const tryAuthUser = async (user) => {
     if (!user.Email || !user.Password) throw new Error('User login data is incomplete');
     try {
         const response = await fetch(`${env.Urls.Backend}${env.Endpoints.Auth}`, {

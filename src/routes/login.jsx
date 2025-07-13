@@ -1,3 +1,3 @@
 export function Login() {
-    return <div />;
+    return <div data-testid="login-page" />;
 }

@@ -12,7 +12,7 @@ const norm = 'card-bg';
 export function MainPage(props) {
     //document.body.className = 'page-bad';
     return (
-        <div className="main-page-surface">
+        <div data-testid="main-page" className="main-page-surface">
             <div className="flex-column padding-base sizing-bb gap-half">
                 <h3>Hello Oleg</h3>
                 <div
