@@ -2,9 +2,9 @@ import { onMount } from 'solid-js';
 import { MainPage } from '../pages/main-page';
 
 export function App() {
-    onMount(async () => {
+    onMount(() => {
         if ('serviceWorker' in navigator) {
-            await navigator.serviceWorker.register('/sw.js?source=index');
+            setTimeout(async () => await navigator.serviceWorker.register('/sw.js?source=index'), 30_000);
         }
     });
     return <MainPage />;
