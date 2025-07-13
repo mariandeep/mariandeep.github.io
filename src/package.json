@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "start": "vite",
-        "build": "vitest run && vite build --emptyOutDir",
+        "build": "vitest run && vitest run --coverage && vite build --emptyOutDir",
         "serve": "vite preview",
         "test": "vitest",
         "coverage": "vitest run --coverage"
