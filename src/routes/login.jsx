@@ -1,3 +1,3 @@
-export function Login () {
-    return <div/>
+export function Login() {
+    return <div />;
 }

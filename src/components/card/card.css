@@ -1,47 +1,47 @@
 @import url(./../../css/themes.css);
 
 .card {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  border-radius: 0.25rem;
-  border-width: 1px;
-  border-style: solid;
-  border-color: transparent;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
 }
 .card-bg {
-  background-color: var(--level-2);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+    background-color: var(--level-2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 .card-good {
-  border-color: var(--green--500);
-  background-color: var(--green--50);
+    border-color: var(--green--500);
+    background-color: var(--green--50);
 }
 .card-bad {
-  border-color: var(--red--500);
-  background-color: var(--red--50);
+    border-color: var(--red--500);
+    background-color: var(--red--50);
 }
 .card-warn {
-  border-color: var(--orange--500);
+    border-color: var(--orange--500);
 }
 .card-blue {
-  border-color: var(--blue--500);
+    border-color: var(--blue--500);
 }
 
 @media (prefers-color-scheme: dark) {
-  .card-good {
-    border-color: var(--green--50);
-    background-color: var(--green--500);
-  }
-  .card-bad {
-    border-color: var(--red--50);
-    background-color: var(--red--500);
-  }
-  .card-warn {
-    border-color: var(--orange--100);
-  }
-  .card-blue {
-    border-color: var(--blue--50);
-  }
+    .card-good {
+        border-color: var(--green--50);
+        background-color: var(--green--500);
+    }
+    .card-bad {
+        border-color: var(--red--50);
+        background-color: var(--red--500);
+    }
+    .card-warn {
+        border-color: var(--orange--100);
+    }
+    .card-blue {
+        border-color: var(--blue--50);
+    }
 }

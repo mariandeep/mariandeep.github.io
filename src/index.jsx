@@ -1,12 +1,14 @@
-
-import { render } from "solid-js/web";
-import { Login } from "./routes/login";
+import { render } from 'solid-js/web';
+import { Login } from './routes/login';
 import { App } from './routes/app';
-import { Router, Route } from "@solidjs/router";
-import './css/index.css'
+import { Router, Route } from '@solidjs/router';
+import './css/index.css';
 
-render(() => (
-  <Router root={App}>
-    <Route path='/login' component={Login}/>
-  </Router>
-), document.getElementById(`app`));
+render(
+    () => (
+        <Router root={App}>
+            <Route path="/login" component={Login} />
+        </Router>
+    ),
+    document.getElementById(`app`)
+);
