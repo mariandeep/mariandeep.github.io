@@ -9,7 +9,17 @@ describe('Data adapter tests', async () => {
             await postData(env.Endpoints.Glucose, secrets.User, {
                 startDate: new Date().toUTCString(),
                 endDate: new Date().toUTCString(),
-                pageNumber: 0,
+                pageNumber: 1,
+                pageSize: 10,
+            })
+        ).toBeDefined();
+    });
+    it('should return insuline readings for today', async () => {
+        expect(
+            await postData(env.Endpoints.Insulin, secrets.User, {
+                startDate: new Date().toUTCString(),
+                endDate: new Date().toUTCString(),
+                pageNumber: 1,
                 pageSize: 10,
             })
         ).toBeDefined();

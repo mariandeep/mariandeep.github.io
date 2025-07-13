@@ -26,7 +26,6 @@ export const postData = async (
     });
     if (response.ok) {
         const data = response.json();
-        console.log(data);
         return data;
     }
     console.log(response);

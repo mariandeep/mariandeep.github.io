@@ -17,7 +17,7 @@ export function MainChartContainer(props) {
         postData(env.Endpoints.Glucose, secret.User, {
             startDate: new Date().toUTCString(),
             endDate: new Date().toUTCString(),
-            pageNumber: 0,
+            pageNumber: 1,
             pageSize: 10,
         })
     );
