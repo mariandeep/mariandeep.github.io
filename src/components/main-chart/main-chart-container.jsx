@@ -1,10 +1,7 @@
 import { createEffect, createResource, createSignal, Match, Show, Switch } from 'solid-js';
 import { Card } from '../card/card';
+import { getData } from './data-helpers';
 
-const getData = async (url) => {
-    const response = await fetch(url);
-    return response.json();
-};
 function drawChart(ref, data) {
     console.log('ref', ref, 'data', data);
     if (!data) {

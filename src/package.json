@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "scripts": {
         "start": "vite",
-        "build": "vite build --emptyOutDir",
+        "build": "vitest run && vite build --emptyOutDir",
         "serve": "vite preview",
-        "test": "vitest"
+        "test": "vitest",
+        "coverage": "vitest run --coverage"
     },
     "type": "module",
     "browser": {
