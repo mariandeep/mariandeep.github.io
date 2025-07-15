@@ -17,7 +17,7 @@ export const postData = async (
     const url = `${env.Urls.Backend}${endpoint}`;
     const response = await fetch(url, {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'cors',
         headers: new Headers({
             'Authorization': `Bearer ${user.Token}`,
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export const tryAuthUser = async (user) => {
     try {
         const response = await fetch(`${env.Urls.Backend}${env.Endpoints.Auth}`, {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: new Headers({ 'Content-Type': 'application/json' }),
             body: JSON.stringify({
                 email: user.Email,
