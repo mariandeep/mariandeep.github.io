@@ -33,8 +33,8 @@ export default defineConfig({
         postCssImport(),
     ],
     server: {
-        port: 80,
-        https: false,
+        port: 443,
+        https: true,
         host: '0.0.0.0',
         open: '../dist/index.html',
     },
