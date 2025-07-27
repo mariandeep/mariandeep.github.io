@@ -1,8 +1,7 @@
 import * as d3 from 'd3';
-import { parseISO } from 'date-fns';
+import { addMinutes, parseISO } from 'date-fns';
 
 export function drawChart(ref, glucoseReadings, insulinReadings) {
-    console.log('ref', ref, 'data', glucoseReadings, insulinReadings);
     if (!glucoseReadings) return;
     // Declare the chart dimensions and margins.
     const width = 928;
@@ -24,6 +23,11 @@ export function drawChart(ref, glucoseReadings, insulinReadings) {
         .domain(d3.extent(glucoseReadings, (d) => d.glucoseLevel))
         .nice()
         .range([height - marginBottom, marginTop]);
+
+    const yInsulin = d3
+        .scaleLinear()
+        .domain([0, 30])
+        .rangeRound([marginTop, height - marginBottom]);
 
     // Create the SVG container.
     const svg = d3
@@ -87,9 +91,26 @@ export function drawChart(ref, glucoseReadings, insulinReadings) {
                 .attr('x2', width - marginRight)
         );
 
+    const doseByTime = (d) => d.dose / d.inventoryItem.insulinBrand.durationMinutes / 60;
+
+    svg.append('g')
+        .attr('stroke', 'var(--text-good)')
+        .attr('stroke-width', 1)
+        .attr('fill', 'transparent')
+        .selectAll()
+        .data(insulinReadings)
+        .join('rect')
+        .attr('data-dose', (d) => d.dose)
+        .attr('data-y', (d) => yInsulin(doseByTime(d)))
+        .attr('data-duration', (d) => d.inventoryItem.insulinBrand.durationMinutes / 60)
+        .attr('x', (d) => xTime(parseISO(d.readingTime)))
+        .attr('width', (d) => xTime(addMinutes(parseISO(d.readingTime), d.inventoryItem.insulinBrand.durationMinutes)))
+        .attr('y', (d) => yInsulin(0))
+        .attr('height', (d) => yInsulin(d.dose / (d.inventoryItem.insulinBrand.durationMinutes / 60)));
+
     // Add a layer of dots.
     svg.append('g')
-        .attr('stroke', 'var(--base-color)')
+        .attr('stroke', 'var(--text-warn)')
         .attr('stroke-width', 1.5)
         .attr('fill', 'none')
         .selectAll('circle')
