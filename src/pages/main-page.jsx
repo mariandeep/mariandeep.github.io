@@ -2,6 +2,8 @@ import { Card } from '../components/card/card';
 import cn from 'classnames';
 import './main-page.css';
 import { MainChartContainer } from '../components/main-chart/main-chart-container';
+import { getObservedDate } from '../components/params';
+import { formatDate } from 'date-fns';
 
 const cardTemplate = 'padding-quarter card-bg d-flex justify-content-center';
 const red = 'card-bad text-bad';
@@ -10,11 +12,14 @@ const blue = 'card-blue';
 const norm = 'card-bg';
 
 export function MainPage(props) {
-    //document.body.className = 'page-bad';
+    const date = getObservedDate();
     return (
         <div data-testid="main-page" className="main-page-surface">
             <div className="flex-column padding-base sizing-bb gap-half">
-                <h3>Hello Oleg</h3>
+                <div className="d-flex flex-row align-items-center justify-content-between ">
+                    <h3>Hello Oleg</h3>
+                    <div className="x-small">{formatDate(date, 'yyyy-MM-dd')}</div>
+                </div>
                 <div
                     className="gap-half sizing-bb d-grid"
                     style={{

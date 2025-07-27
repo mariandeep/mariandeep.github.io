@@ -33,6 +33,18 @@
 .d-grid {
     display: grid;
 }
+.align-items-center {
+    align-items: center;
+}
+.justify-content-between {
+    justify-content: space-between;
+}
+.x-small {
+    font-size: x-small;
+}
+.xx-small {
+    font-size: xx-small;
+}
 
 /* columns */
 .col-start-1 {
