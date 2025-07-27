@@ -5,15 +5,11 @@ import env from './../../env.json';
 import secret from './../../secrets.json';
 import { getPageableBody } from './data-helpers';
 import { drawChart } from './draw-chart';
-import { formatISO, parseISO } from 'date-fns';
-import { useSearchParams } from '@solidjs/router';
+import { formatISO } from 'date-fns';
+import { getObservedDate } from './../params';
 
 export function MainChartContainer(props) {
-    const params = useSearchParams()[0];
-    let date = secret.DebugTimestamp ? new Date(secret.DebugTimestamp) : new Date();
-    if (params.date) {
-        date = parseISO(params.date);
-    }
+    const date = getObservedDate();
     const range = 7;
     const [ref, setRef] = createSignal();
     const [glucoseData] = createResource(formatISO(date), () => {
