@@ -26,10 +26,6 @@ export const postData = async (
     });
     if (response.ok) {
         let data = await response.json();
-        const readings = data.readings.sort((a, b) => a.readingTime - b.readingTime);
-        const before = data.readings[0];
-        data = { ...data, ...{ readings: readings } };
-        console.log('READINGS', before, data.readings[0]);
         if (data && path) return data[path];
         else return data;
     }

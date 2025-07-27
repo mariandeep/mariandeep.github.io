@@ -18,11 +18,21 @@ describe('Data adapter tests', async () => {
             pageSize: PAGE_SIZE,
         });
     });
+    it('should create proper body', () => {
+        const body = getPageableBody(DATE, 7, PAGE_NUMBER, PAGE_SIZE);
+        expect(body).toEqual({
+            startDate: '2025-05-02T16:00:00.000Z',
+            endDate: '2025-05-09T16:00:00.000Z',
+            pageNumber: PAGE_NUMBER,
+            pageSize: PAGE_SIZE,
+        });
+    });
     it('should return glucose readings for today', async () => {
-        const dataOrError = await postData(env.Endpoints.Glucose, secrets.User, getPageableBody(DATE, 7));
+        const dataOrError = await postData(env.Endpoints.Glucose, secrets.User, getPageableBody(DATE, 7, PAGE_NUMBER));
         expect(dataOrError).toBeDefined();
         expect(dataOrError).toBeInstanceOf(Object);
         expect(dataOrError.readings[0]).toBeDefined();
+        expect(dataOrError.readings[0].readingTime?.length).toEqual(20);
         expect(dataOrError.readings[0].glucoseLevel).toBeGreaterThan(0);
         expect(dataOrError.readings[0].inventoryItem).toBeDefined();
     });
@@ -32,6 +42,7 @@ describe('Data adapter tests', async () => {
         expect(dataOrError).toBeInstanceOf(Object);
         expect(dataOrError.readings[0]).toBeDefined();
         expect(dataOrError.readings[0].dose).toBeGreaterThanOrEqual(1);
+        expect(dataOrError.readings[0].readingTime?.length).toEqual(20);
         expect(dataOrError.readings[0].inventoryItem).toBeDefined();
     });
     it.fails('should return insuline readings for today', async () => {
