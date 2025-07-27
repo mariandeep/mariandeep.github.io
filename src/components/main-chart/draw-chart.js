@@ -11,6 +11,7 @@ export function drawChart(ref, glucoseReadings, insulinReadings) {
     const marginBottom = 35;
     const marginLeft = 40;
 
+    const doseColors = d3.scaleLinear([0, 24], [0x33, 0x00]);
     // Prepare the scales for positional encoding.
     const xTime = d3
         .scaleLinear()
@@ -94,13 +95,14 @@ export function drawChart(ref, glucoseReadings, insulinReadings) {
     const doseByTime = (d) => d.dose / d.inventoryItem.insulinBrand.durationMinutes / 60;
 
     svg.append('g')
-        .attr('stroke', 'var(--text-good)')
+        .attr('stroke', '#c0ca33AA')
         .attr('stroke-width', 1)
-        .attr('fill', 'transparent')
         .selectAll()
         .data(insulinReadings)
         .join('rect')
+        .attr('fill', (d) => `#c0ca33${Math.round(doseColors(doseByTime(d))).toString(16)}`)
         .attr('data-dose', (d) => d.dose)
+        .attr('data-date', (d) => d.readingTime)
         .attr('data-y', (d) => yInsulin(doseByTime(d)))
         .attr('data-duration', (d) => d.inventoryItem.insulinBrand.durationMinutes / 60)
         .attr('x', (d) => xTime(parseISO(d.readingTime)))
