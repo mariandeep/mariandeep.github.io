@@ -1,11 +1,10 @@
 //@ts-check
 import { parseISO } from 'date-fns';
 import { useSearchParams } from '@solidjs/router';
-import secret from './../secrets.json';
 
 export function getObservedDate() {
-    const params = useSearchParams()[0];
-    let date = secret.DebugTimestamp ? new Date(secret.DebugTimestamp) : new Date();
+    let params = globalThis.vitest ? { date: '2025-05-06T00:00:00.000Z' } : useSearchParams()[0];
+    let date = new Date();
     if (params.date && typeof params.date === 'string') {
         date = parseISO(params.date);
     }
