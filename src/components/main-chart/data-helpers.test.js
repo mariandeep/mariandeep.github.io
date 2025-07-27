@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { tryAuthUser, postData, getPageableBody } from './data-helpers';
 import secrets from './../../secrets.json';
 import env from './../../env.json';
+import { parseISO } from 'date-fns';
 
 const DATE = secrets.DebugTimestamp ? new Date(secrets.DebugTimestamp) : new Date(2025, 4, 10, 0, 0, 0, 0);
 const PAGE_NUMBER = 1;
@@ -33,6 +34,7 @@ describe('Data adapter tests', async () => {
         expect(dataOrError).toBeInstanceOf(Object);
         expect(dataOrError.readings[0]).toBeDefined();
         expect(dataOrError.readings[0].readingTime?.length).toEqual(20);
+        expect(parseISO(dataOrError.readings[0].readingTime)).toBeDefined();
         expect(dataOrError.readings[0].glucoseLevel).toBeGreaterThan(0);
         expect(dataOrError.readings[0].inventoryItem).toBeDefined();
     });
@@ -43,6 +45,7 @@ describe('Data adapter tests', async () => {
         expect(dataOrError.readings[0]).toBeDefined();
         expect(dataOrError.readings[0].dose).toBeGreaterThanOrEqual(1);
         expect(dataOrError.readings[0].readingTime?.length).toEqual(20);
+        expect(parseISO(dataOrError.readings[0].readingTime)).toBeDefined();
         expect(dataOrError.readings[0].inventoryItem).toBeDefined();
     });
     it.fails('should return insuline readings for today', async () => {

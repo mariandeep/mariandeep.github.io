@@ -1,33 +1,34 @@
-import { createEffect, createResource, createSignal, Match, Show, Switch } from 'solid-js';
+import { createEffect, createResource, createSignal, Match, Switch } from 'solid-js';
 import { Card } from '../card/card';
 import { postData } from './data-helpers';
 import env from './../../env.json';
 import secret from './../../secrets.json';
 import { getPageableBody } from './data-helpers';
-
-function drawChart(ref, data) {
-    console.log('ref', ref, 'data', data);
-    if (!data) {
-        data = {};
-    }
-}
+import { drawChart } from './draw-chart';
+import { formatISO } from 'date-fns';
 
 export function MainChartContainer(props) {
     const date = secret.DebugTimestamp ? new Date(secret.DebugTimestamp) : new Date();
+    const range = 7;
     const [ref, setRef] = createSignal();
-    const [data] = createResource('/data/data.json', () => {
-        postData(env.Endpoints.Glucose, secret.User, getPageableBody(date, 7), 'readings');
+    const [glucoseData] = createResource(formatISO(date), () => {
+        return postData(env.Endpoints.Glucose, secret.User, getPageableBody(date, range), 'readings');
+    });
+    const [insulinData] = createResource(formatISO(date), () => {
+        return postData(env.Endpoints.Insulin, secret.User, getPageableBody(date, range), 'readings');
     });
     createEffect(() => {
-        drawChart(ref(), data());
+        drawChart(ref(), glucoseData(), insulinData());
     });
     return (
-        <Card className="card-bg padding-base" style={{ minHeight: `30vh` }}>
+        <Card className="card-bg padding-base" data-testid="chart-container" style={{ minHeight: `30vh` }}>
             <Switch>
-                <Match when={data.error}>Error {data.error}</Match>
-                <Match when={data.loading}>Loading...</Match>
+                <Match when={glucoseData.error || insulinData.error}>Error {glucoseData.error}</Match>
+                <Match when={glucoseData.loading || insulinData.loading}>Loading...</Match>
+                <Match when={!glucoseData.error && !glucoseData.loading && !insulinData.error && !insulinData.loading}>
+                    <div ref={setRef} className="d-grid"></div>
+                </Match>
             </Switch>
-            <div ref={setRef} className="d-grid"></div>
         </Card>
     );
 }
