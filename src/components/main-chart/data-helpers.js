@@ -25,7 +25,11 @@ export const postData = async (
         body: JSON.stringify(body),
     });
     if (response.ok) {
-        const data = response.json();
+        let data = await response.json();
+        const readings = data.readings.sort((a, b) => a.readingTime - b.readingTime);
+        const before = data.readings[0];
+        data = { ...data, ...{ readings: readings } };
+        console.log('READINGS', before, data.readings[0]);
         if (data && path) return data[path];
         else return data;
     }
@@ -59,7 +63,11 @@ export const tryAuthUser = async (user) => {
     }
 };
 
-export function getPageableBody(date, days, pageNumber = 1, pageSize = 100) {
+const MAX_PAGE_SIZE = 100;
+
+export function getPageableBody(date, days, pageNumber = 1, pageSize = MAX_PAGE_SIZE) {
+    if (pageSize > MAX_PAGE_SIZE) throw new Error(`max pageSize is ${MAX_PAGE_SIZE}`);
+    if (pageNumber < 1) throw new Error('pageNumber must be greater than 0');
     const endDate = addDays(date, days * -1);
     return {
         startDate: endDate.toISOString(),
