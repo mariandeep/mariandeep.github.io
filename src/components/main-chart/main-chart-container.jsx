@@ -13,9 +13,10 @@ function drawChart(ref, data) {
 }
 
 export function MainChartContainer(props) {
+    const date = secret.DebugTimestamp ? new Date(secret.DebugTimestamp) : new Date();
     const [ref, setRef] = createSignal();
     const [data] = createResource('/data/data.json', () => {
-        postData(env.Endpoints.Glucose, secret.User, getPageableBody(new Date(), 7), 'readings');
+        postData(env.Endpoints.Glucose, secret.User, getPageableBody(date, 7), 'readings');
     });
     createEffect(() => {
         drawChart(ref(), data());
