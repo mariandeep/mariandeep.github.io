@@ -60,11 +60,10 @@ export const tryAuthUser = async (user) => {
 };
 
 export function getPageableBody(date, days, pageNumber = 1, pageSize = 100) {
-    const startDate = date;
-    const endDate = addDays(startDate, days * -1);
+    const endDate = addDays(date, days * -1);
     return {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
+        startDate: endDate.toISOString(),
+        endDate: date.toISOString(),
         pageNumber: pageNumber,
         pageSize: pageSize,
     };
