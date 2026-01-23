@@ -3,16 +3,11 @@
  * Creates an HTML canvas drawing of a graph built from linear segments
  */
 /**
- * Creates an HTML canvas element with a linear graph drawn from the specified segments
- * @param config - Configuration object containing line segments and optional dimensions
- * @returns HTML string containing the canvas element with the drawn graph
+ * Calculate the bounds (min/max values) for a set of line segments
+ * @param segments - Array of line segments
+ * @returns Bounds object with adjusted min/max values including margin
  */
-export function createLinearGraph(config) {
-    const { segments, width = 800, height = 600, padding = 50 } = config;
-    if (!segments || segments.length === 0) {
-        throw new Error('At least one line segment is required');
-    }
-    // Find min/max values for scaling
+function calculateBounds(segments) {
     let minX = Infinity;
     let maxX = -Infinity;
     let minY = Infinity;
@@ -30,6 +25,19 @@ export function createLinearGraph(config) {
     maxX += xRange * 0.1;
     minY -= yRange * 0.1;
     maxY += yRange * 0.1;
+    return { minX, maxX, minY, maxY };
+}
+/**
+ * Creates an HTML canvas element with a linear graph drawn from the specified segments
+ * @param config - Configuration object containing line segments and optional dimensions
+ * @returns HTML string containing the canvas element with the drawn graph
+ */
+export function createLinearGraph(config) {
+    const { segments, width = 800, height = 600, padding = 50 } = config;
+    if (!segments || segments.length === 0) {
+        throw new Error('At least one line segment is required');
+    }
+    const { minX, maxX, minY, maxY } = calculateBounds(segments);
     // Scale functions to map data coordinates to canvas coordinates
     const scaleX = (x) => padding + ((x - minX) / (maxX - minX)) * (width - 2 * padding);
     const scaleY = (y) => height - padding - ((y - minY) / (maxY - minY)) * (height - 2 * padding);
@@ -115,24 +123,7 @@ export function renderLinearGraphToCanvas(canvasId, config) {
     // Set canvas dimensions
     canvas.width = width;
     canvas.height = height;
-    // Find min/max values for scaling
-    let minX = Infinity;
-    let maxX = -Infinity;
-    let minY = Infinity;
-    let maxY = -Infinity;
-    segments.forEach((segment) => {
-        minX = Math.min(minX, segment.x_start, segment.x_end);
-        maxX = Math.max(maxX, segment.x_start, segment.x_end);
-        minY = Math.min(minY, segment.y_start, segment.y_end);
-        maxY = Math.max(maxY, segment.y_start, segment.y_end);
-    });
-    // Add some margin to the ranges
-    const xRange = maxX - minX || 1;
-    const yRange = maxY - minY || 1;
-    minX -= xRange * 0.1;
-    maxX += xRange * 0.1;
-    minY -= yRange * 0.1;
-    maxY += yRange * 0.1;
+    const { minX, maxX, minY, maxY } = calculateBounds(segments);
     // Scale functions to map data coordinates to canvas coordinates
     const scaleX = (x) => padding + ((x - minX) / (maxX - minX)) * (width - 2 * padding);
     const scaleY = (y) => height - padding - ((y - minY) / (maxY - minY)) * (height - 2 * padding);
