@@ -39,7 +39,7 @@ npm install
 
 All commands should be run from the `/src` directory:
 
-- `npm run start` - Start development server (port 443 with HTTPS)
+- `npm run start` - Start development server (configured for port 443 with HTTPS via vite.config.js)
 - `npm run build` - Run tests, generate coverage, and build for production
 - `npm run serve` - Preview production build
 - `npm test` - Run tests in watch mode
@@ -67,7 +67,7 @@ The build process:
 - Use semicolons
 - Use single quotes
 - Trailing commas (ES5)
-- Bracket spacing enabled
+- Bracket spacing enabled (spaces inside object literals: `{ foo: bar }`)
 - Arrow function parens: always
 
 ### Testing
