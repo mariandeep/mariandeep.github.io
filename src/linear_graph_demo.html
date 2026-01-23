@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Graph Function Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .demo-section {
+            margin-bottom: 40px;
+        }
+        
+        .demo-section h2 {
+            color: #555;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        
+        canvas {
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .json-display {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        pre {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .description {
+            color: #666;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Linear Graph Function Demo</h1>
+    
+    <div class="container">
+        <div class="demo-section">
+            <h2>Demo 1: Simple Linear Function (y = x)</h2>
+            <p class="description">A simple line from (0,0) to (10,10) in red color.</p>
+            <div class="json-display">
+                <strong>Input JSON:</strong>
+                <pre id="json1"></pre>
+            </div>
+            <canvas id="graph1" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="demo-section">
+            <h2>Demo 2: Multi-Segment Piecewise Function</h2>
+            <p class="description">A piecewise linear function with three segments in different colors.</p>
+            <div class="json-display">
+                <strong>Input JSON:</strong>
+                <pre id="json2"></pre>
+            </div>
+            <canvas id="graph2" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="demo-section">
+            <h2>Demo 3: Complex Graph with Negative Values</h2>
+            <p class="description">A complex graph showing various slopes including negative coordinates.</p>
+            <div class="json-display">
+                <strong>Input JSON:</strong>
+                <pre id="json3"></pre>
+            </div>
+            <canvas id="graph3" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="demo-section">
+            <h2>Demo 4: Zigzag Pattern</h2>
+            <p class="description">Multiple connected segments creating a zigzag pattern with rainbow colors.</p>
+            <div class="json-display">
+                <strong>Input JSON:</strong>
+                <pre id="json4"></pre>
+            </div>
+            <canvas id="graph4" width="800" height="600"></canvas>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the linear function module
+        import { renderLinearGraphToCanvas } from './linear_function.js';
+
+        // Demo 1: Simple linear function
+        const demo1 = {
+            segments: [
+                { x_start: 0, x_end: 10, y_start: 0, y_end: 10, segment_color: 'red' }
+            ]
+        };
+        document.getElementById('json1').textContent = JSON.stringify(demo1, null, 2);
+        renderLinearGraphToCanvas('graph1', demo1);
+
+        // Demo 2: Multi-segment piecewise function
+        const demo2 = {
+            segments: [
+                { x_start: 0, x_end: 5, y_start: 0, y_end: 5, segment_color: 'red' },
+                { x_start: 5, x_end: 10, y_start: 5, y_end: 3, segment_color: 'green' },
+                { x_start: 10, x_end: 15, y_start: 3, y_end: 8, segment_color: 'blue' }
+            ]
+        };
+        document.getElementById('json2').textContent = JSON.stringify(demo2, null, 2);
+        renderLinearGraphToCanvas('graph2', demo2);
+
+        // Demo 3: Complex graph with negative values
+        const demo3 = {
+            segments: [
+                { x_start: -10, x_end: -5, y_start: 5, y_end: 10, segment_color: '#FF5733' },
+                { x_start: -5, x_end: 0, y_start: 10, y_end: -2, segment_color: '#33FF57' },
+                { x_start: 0, x_end: 5, y_start: -2, y_end: 0, segment_color: '#3357FF' },
+                { x_start: 5, x_end: 10, y_start: 0, y_end: 8, segment_color: '#FF33F5' }
+            ]
+        };
+        document.getElementById('json3').textContent = JSON.stringify(demo3, null, 2);
+        renderLinearGraphToCanvas('graph3', demo3);
+
+        // Demo 4: Zigzag pattern
+        const demo4 = {
+            segments: [
+                { x_start: 0, x_end: 2, y_start: 0, y_end: 10, segment_color: 'red' },
+                { x_start: 2, x_end: 4, y_start: 10, y_end: 0, segment_color: 'orange' },
+                { x_start: 4, x_end: 6, y_start: 0, y_end: 10, segment_color: 'yellow' },
+                { x_start: 6, x_end: 8, y_start: 10, y_end: 0, segment_color: 'green' },
+                { x_start: 8, x_end: 10, y_start: 0, y_end: 10, segment_color: 'blue' },
+                { x_start: 10, x_end: 12, y_start: 10, y_end: 0, segment_color: 'indigo' },
+                { x_start: 12, x_end: 14, y_start: 0, y_end: 10, segment_color: 'violet' }
+            ]
+        };
+        document.getElementById('json4').textContent = JSON.stringify(demo4, null, 2);
+        renderLinearGraphToCanvas('graph4', demo4);
+    </script>
+</body>
+</html>
