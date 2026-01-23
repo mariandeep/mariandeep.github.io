@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Graph Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .json-display {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        svg {
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+        }
+        .description {
+            color: #666;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Linear Graph Function Demo</h1>
+    
+    <div class="demo-section">
+        <h2>Example 1: Simple Linear Function</h2>
+        <p class="description">A single line from (0, 0) to (10, 10)</p>
+        <div class="json-display">
+{
+  "segments": [
+    {
+      "x_start": 0,
+      "x_end": 10,
+      "y_start": 0,
+      "y_end": 10,
+      "segment_color": "blue"
+    }
+  ]
+}
+        </div>
+        <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="600" fill="white" />
+            <line x1="50" y1="300" x2="750" y2="300" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="400" y1="50" x2="400" y2="550" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="550" x2="750" y2="50" stroke="blue" stroke-width="2" />
+        </svg>
+    </div>
+
+    <div class="demo-section">
+        <h2>Example 2: Piecewise Linear Function</h2>
+        <p class="description">Multiple connected line segments with different colors</p>
+        <div class="json-display">
+{
+  "segments": [
+    { "x_start": 0, "x_end": 2, "y_start": 0, "y_end": 4, "segment_color": "red" },
+    { "x_start": 2, "x_end": 4, "y_start": 4, "y_end": 2, "segment_color": "green" },
+    { "x_start": 4, "x_end": 6, "y_start": 2, "y_end": 6, "segment_color": "blue" },
+    { "x_start": 6, "x_end": 8, "y_start": 6, "y_end": 0, "segment_color": "purple" }
+  ]
+}
+        </div>
+        <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="600" fill="white" />
+            <line x1="50" y1="550" x2="750" y2="550" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="50" x2="50" y2="550" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="550" x2="225" y2="217" stroke="red" stroke-width="2" />
+            <line x1="225" y1="217" x2="400" y2="383.33" stroke="green" stroke-width="2" />
+            <line x1="400" y1="383.33" x2="575" y2="50" stroke="blue" stroke-width="2" />
+            <line x1="575" y1="50" x2="750" y2="550" stroke="purple" stroke-width="2" />
+        </svg>
+    </div>
+
+    <div class="demo-section">
+        <h2>Example 3: Step Function</h2>
+        <p class="description">Horizontal and vertical segments creating a step pattern</p>
+        <div class="json-display">
+{
+  "segments": [
+    { "x_start": 0, "x_end": 2, "y_start": 1, "y_end": 1, "segment_color": "orange" },
+    { "x_start": 2, "x_end": 2, "y_start": 1, "y_end": 3, "segment_color": "orange" },
+    { "x_start": 2, "x_end": 4, "y_start": 3, "y_end": 3, "segment_color": "orange" },
+    { "x_start": 4, "x_end": 4, "y_start": 3, "y_end": 5, "segment_color": "orange" },
+    { "x_start": 4, "x_end": 6, "y_start": 5, "y_end": 5, "segment_color": "orange" }
+  ]
+}
+        </div>
+        <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="600" fill="white" />
+            <line x1="50" y1="425" x2="750" y2="425" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="50" x2="50" y2="550" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="425" x2="283.33" y2="425" stroke="orange" stroke-width="2" />
+            <line x1="283.33" y1="425" x2="283.33" y2="300" stroke="orange" stroke-width="2" />
+            <line x1="283.33" y1="300" x2="516.66" y2="300" stroke="orange" stroke-width="2" />
+            <line x1="516.66" y1="300" x2="516.66" y2="175" stroke="orange" stroke-width="2" />
+            <line x1="516.66" y1="175" x2="750" y2="175" stroke="orange" stroke-width="2" />
+        </svg>
+    </div>
+
+    <div class="demo-section">
+        <h2>Example 4: Triangle Wave</h2>
+        <p class="description">Alternating slopes creating a wave pattern</p>
+        <div class="json-display">
+{
+  "segments": [
+    { "x_start": 0, "x_end": 1, "y_start": 0, "y_end": 2, "segment_color": "#FF6B6B" },
+    { "x_start": 1, "x_end": 2, "y_start": 2, "y_end": 0, "segment_color": "#4ECDC4" },
+    { "x_start": 2, "x_end": 3, "y_start": 0, "y_end": 2, "segment_color": "#45B7D1" },
+    { "x_start": 3, "x_end": 4, "y_start": 2, "y_end": 0, "segment_color": "#FFA07A" },
+    { "x_start": 4, "x_end": 5, "y_start": 0, "y_end": 2, "segment_color": "#98D8C8" }
+  ]
+}
+        </div>
+        <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="600" fill="white" />
+            <line x1="50" y1="425" x2="750" y2="425" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="50" x2="50" y2="550" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="550" x2="190" y2="50" stroke="#FF6B6B" stroke-width="2" />
+            <line x1="190" y1="50" x2="330" y2="550" stroke="#4ECDC4" stroke-width="2" />
+            <line x1="330" y1="550" x2="470" y2="50" stroke="#45B7D1" stroke-width="2" />
+            <line x1="470" y1="50" x2="610" y2="550" stroke="#FFA07A" stroke-width="2" />
+            <line x1="610" y1="550" x2="750" y2="50" stroke="#98D8C8" stroke-width="2" />
+        </svg>
+    </div>
+
+    <div class="demo-section">
+        <h2>Example 5: Negative Coordinates</h2>
+        <p class="description">Segments with negative x and y values</p>
+        <div class="json-display">
+{
+  "segments": [
+    { "x_start": -5, "x_end": 0, "y_start": -3, "y_end": 0, "segment_color": "darkblue" },
+    { "x_start": 0, "x_end": 5, "y_start": 0, "y_end": 3, "segment_color": "darkgreen" }
+  ]
+}
+        </div>
+        <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="600" fill="white" />
+            <line x1="50" y1="300" x2="750" y2="300" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="400" y1="50" x2="400" y2="550" stroke="gray" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="550" x2="400" y2="300" stroke="darkblue" stroke-width="2" />
+            <line x1="400" y1="300" x2="750" y2="50" stroke="darkgreen" stroke-width="2" />
+        </svg>
+    </div>
+
+    <div class="demo-section">
+        <h2>How to Use</h2>
+        <p class="description">
+            The <code>createLinearGraph()</code> function accepts a JSON configuration object with the following structure:
+        </p>
+        <div class="json-display">
+{
+  "segments": [
+    {
+      "x_start": number,    // Starting x coordinate
+      "x_end": number,      // Ending x coordinate
+      "y_start": number,    // Starting y coordinate
+      "y_end": number,      // Ending y coordinate
+      "segment_color": string  // Color (name, hex, rgb, etc.)
+    }
+  ],
+  "width": number,        // Optional: Canvas width (default: 800)
+  "height": number,       // Optional: Canvas height (default: 600)
+  "padding": number       // Optional: Padding around graph (default: 50)
+}
+        </div>
+        <p class="description">
+            The function automatically scales the segments to fit the canvas and adds coordinate axes for reference.
+        </p>
+    </div>
+</body>
+</html>
